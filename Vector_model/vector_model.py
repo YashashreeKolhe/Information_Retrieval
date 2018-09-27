@@ -1,5 +1,6 @@
 import re
 import math
+import numpy as np
 
 def buildReverseIndex(documents, reverseIndex):
 	for index, document in enumerate(documents):
@@ -40,6 +41,8 @@ def buildNormalisedMatrix(matrix):
 			
 def cosineSimilarityComputation(matrix, doc1, doc2):
 	cosine = 0
+	#print(doc1)
+	#print(doc2)
 	for i in range(len(doc1)):
 		cosine += doc1[i] * doc2[i]
 	return cosine
@@ -66,20 +69,23 @@ def main():
 
 	buildReverseIndex(documents, reverseIndex)
 	matrix = buildTermIncidenceMatrix(documents, reverseIndex)
+	print("Term frequency Matrix:")
 	printTermIncidenceMatrix(matrix, reverseIndex, documents)
 	print('\n')
 	buildTF_IDFMatrix(matrix, reverseIndex, totalDocuments)
+	print("TF-IDF Matrix:")
 	printTermIncidenceMatrix(matrix, reverseIndex, documents)
 	print('\n')
 	buildNormalisedMatrix(matrix)
+	print("Normalised Matrix:")
 	printTermIncidenceMatrix(matrix, reverseIndex, documents)
 	print('\n')
 
 	print('Finding similarity between all documents: ')
-	for i in range(0, len(documents)):
+	for i in range(0, len(documents) - 1):
 		for j in range(i+1, len(documents)):
-			cosine_similarity = cosineSimilarityComputation(matrix, matrix[i], matrix[j])
-			print('Doc' + str(i+1) + ' and Doc' + str(j+1) + ' : ' + str(cosine_similarity))
+			cosine_similarity = cosineSimilarityComputation(matrix, np.array(matrix)[:, i], np.array(matrix)[:, j])
+			print('Doc' + str(i+1) + ' and Doc' + str(j+1) + ' : ' + str(float("{0:.4f}".format(cosine_similarity))))
 	
 if __name__ == '__main__':
 	main()
