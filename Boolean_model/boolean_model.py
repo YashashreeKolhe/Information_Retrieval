@@ -76,9 +76,8 @@ def main():
 	universalSet = set()
 	for i in range(1, totalDocuments + 1):
 		universalSet.add(i)
-
-	print('Enter the number of documents you want write data to: ')
-	number_of_documents = int(input())
+		
+	number_of_documents = totalDocuments
 
 	for number in range(1, number_of_documents + 1):
 		print('Document ' + str(number) + ':')

@@ -86,6 +86,6 @@ def main():
 		for j in range(i+1, len(documents)):
 			cosine_similarity = cosineSimilarityComputation(matrix, np.array(matrix)[:, i], np.array(matrix)[:, j])
 			print('Doc' + str(i+1) + ' and Doc' + str(j+1) + ' : ' + str(float("{0:.4f}".format(cosine_similarity))))
-	
+		
 if __name__ == '__main__':
 	main()
